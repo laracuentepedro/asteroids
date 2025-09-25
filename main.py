@@ -2,6 +2,7 @@ from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 import pygame
+import sys
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, ASTEROID_MIN_RADIUS, ASTEROID_KINDS, ASTEROID_SPAWN_RATE, ASTEROID_MAX_RADIUS
 def main():
     print("Starting Asteroids!")
@@ -25,8 +26,12 @@ def main():
                 return
         screen.fill((0,0,0))
         for object in drawable:
-            object.draw(screen)
+            object.draw(screen)        
         updatable.update(dt)
+        for asteroid in asteroids:
+            if asteroid.check_collision(player_character) == True:
+                print("Game over!")
+                sys.exit()
         pygame.display.flip()
         dt = clock.tick(60)/1000
 
